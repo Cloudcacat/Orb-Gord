@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>โอบกอดอยากถาม</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300&display=swap|Gwendolyn&family=Meow+Script&family=Playfair+Display&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/main.css">
+  <style>
+
+        body{
+                height: 100%;
+                width: 100%;
+                margin: 0;
+                background-size: cover;
+                background-attachment: fixed;
+                background-image: url(pic/b1.png);
+                font-family: 'Mitr', sans-serif;
+        } 
+
+    #frame {
+      height: 350px;
+      width: 600px;
+      background-color: white;
+      border: 3px solid black;
+      border-radius: 10px;
+      align-items: center;
+      margin: auto;
+    }
+    #frame header {
+    background-color: #ffe4e3;
+    padding: 25px 0;
+    text-align: center;
+    border-radius: 9px 9px 0px 0px;
+}
+
+    input[type=button] {
+      width: 385px;
+      height: 2em;
+    }
+
+    input[type=button]:disabled {
+      opacity: 1
+    }
+
+    #center {
+      text-align: center;
+      color: black;
+    }
+  </style>
+</head>
+<div class="row mt-4 justify-content-center">
+  <div>
+    <div id="center">
+      <body onload="loadquestion()">
+        <form name="myform" style="margin: 8% auto;">
+          <label id="question">Question</label><br><br>
+          <div id="frame" class="feme" style="margin: auto;" >
+          <header ></header><p type="text" style="margin: 10px auto;" id="comment"  name="comment" ></p>
+          <input style="margin: 10px auto;" type="button" id="opt1"  class="choice" value="option1" name="opt1" onclick="checkans(1)">
+          <input style="margin: 10px auto;" type="button" id="opt2" class="choice"   value="option2" name="opt2" onclick="checkans(2)">
+          <input style="margin: 10px auto;" type="button" id="opt3" class="choice"  value="option3" name="opt3" onclick="checkans(3)">
+          <input style="margin: 10px auto;" type="button" id="opt4" class="choice"  value="option4" name="opt4" onclick="checkans(4)">
+          <input style="margin: 10px auto;" type="button" id="bt1" class="choice" value="เริ่มใหม่" onclick="restart()"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+let  i=0;
+let  score=0;
+let opt1 = document.getElementById("opt1")
+let opt2 = document.getElementById("opt2")
+let opt3 = document.getElementById("opt3")
+let opt4 = document.getElementById("opt4")
+var string1;
+
+// ------------------------------------ คำถาม---------------------------
+let myqs=[["</br>คุณมีปัญหาการนอน นอนไม่หลับหรือนอนมาก","แทบไม่มี","เป็นบางครั้ง","บ่อยครั้ง","เป็นประจำ"],
+       ["</br>คุณมีสมาธิน้อยลง","แทบไม่มี","เป็นบางครั้ง","บ่อยครั้ง","เป็นประจำ"],
+       ["</br>คุณมีปัญหาหงุดหงิด/กระวนกระวาย/ว้าวุ่นใจ","แทบไม่มี","เป็นบางครั้ง","บ่อยครั้ง","เป็นประจำ"],
+       ["</br>คุณรู้สึกเบื่อ เซ็ง","แทบไม่มี","เป็นบางครั้ง","บ่อยครั้ง","เป็นประจำ"],
+       ["</br>คุณไม่อยากพบปะผู้คน","แทบไม่มี","เป็นบางครั้ง","บ่อยครั้ง","เป็นประจำ"]
+ ];
+
+ function loadquestion()
+ {
+ opt1.style.display = "block"
+ opt2.style.display = "block"
+ opt3.style.display = "block"
+ opt4.style.display = "block"
+
+ document.getElementById("bt1").style.display = "none"
+ document.getElementById("question").style.display= "none"
+ document.getElementById("comment").innerHTML=myqs[i][0];
+ myform.opt1.value=myqs[i][1];
+ myform.opt2.value=myqs[i][2];
+ myform.opt3.value=myqs[i][3];
+ myform.opt4.value=myqs[i][4];
+ }
+
+function restart() {
+window.top.location="Qtest.html"
+        }
+
+function next(){
+  i=i+1;
+  if(i<5){
+   loadquestion();
+   }else{
+    if(score<=4){
+      string1="<h3>ผลการประเมิน</h3>ท่านไม่มีอาการซึมเศร้าหรือมีความเครียดอยู่ในเกณฑ์เพียงเล็กน้อย</br>ลองมาพูดคุยกับโอบกอดก่อนได้นะ"
+    }
+    else if(score<=7){
+      string1="<h3>ผลการประเมิน</h3>ท่านมีความเครียดอยู่ในเกณฑ์ปานกลาง</br>ลองมาพูดคุยกับโอบกอดได้น้าา"
+    }
+    else if(score<=9){
+      string1="<h3>ผลการประเมิน</h3>ท่านมีความเครียดอยู่ในเกณฑ์เครียดมาก ถือว่ามีความเสี่ยง</br>โอบกอดแนะนำให้ลองปรึกษาผู้เชี่ยวชาญ ลองคลิกที่ช่องทางอื่นๆได้เลย"
+    }
+    else if(score<=15){
+      string1="<h3>ผลการประเมิน</h3>ท่านมีความเครียดอยู่ในเกณฑ์เครียดมากที่สุด ถือว่ามีความเสี่ยงสูง</br>โอบกอดแนะนำให้ลองปรึกษาผู้เชี่ยวชาญ ลองคลิกที่ช่องทางอื่นๆได้เลย"
+    }
+  document.getElementById("comment").innerHTML = string1
+  opt1.value = "คุยกับโอบกอด"
+  opt1.style.display = "block"
+  opt1.onclick = function(){chat()};
+  opt2.value = "ช่องทางอื่นๆ"
+  opt2.style.display = "block"
+  opt2.onclick = function(){post1()};
+  opt3.style.display = "none"
+  opt4.style.display = "none"
+  document.getElementById("bt1").style.display = "block"
+
+ }
+}
+function chat(){
+  window.location="chatbot.html"
+}
+
+function post1(){
+  window.location="1-post.html"
+}
+function checkans(select){
+ if(select==1)
+ {
+        console.log(score);
+  next()
+ }
+ else if (select==2) {
+        score++
+        console.log(score);
+        next()
+ }else if (select==3) {
+        score+=2
+        console.log(score);
+        next()
+ }else if (select==4) {
+        score+=3
+        console.log(score);
+        next()
+ } else {
+        console.log(score);
+ }
+}
+</script>
+</body>
+
+</html>
